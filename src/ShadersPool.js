@@ -28,10 +28,36 @@ export default class ShadersPool {
   }
 
   getShaderFromPool(shaderName) {
+    let pass;
+    let shaderItem;
 
+    for (var i = this._availableShaders.length - 1; i >= 0; i--) {
+      shaderItem = this._availableShaders[i];
+      if (!shaderItem.used && shaderItem.name === shaderName) {
+        shaderItem.used = true;
+        pass = shaderItem.pass;
+        break;
+      }
+    }
+
+    if (!pass) {
+      throw new Error('This Shader is not available in pool');
+    }
+
+    return pass;
   }
 
   extendParams(target, source) {
-
+    // TODO do it with extends or equivalent package
+    
+    const obj = {};
+    for (var i = 0, il = arguments.length, key; i < il; i++) {
+      for (key in arguments[i]) {
+        if (arguments[i].hasOwnProperty(key)) {
+          obj[key] = arguments[i][key];
+        }
+      }
+    }
+    return obj;
   }
 }

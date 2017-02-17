@@ -5,7 +5,10 @@ export default class BlendPass extends Pass {
   constructor(options = {}) {
     super();
 
-    this.setShader(require('glslify!raw!../../shaders/vertex/basic.glsl'), require('glslify!raw!./blend-fs.glsl'));
+    this.setShader(
+      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
+      require('glslify!raw!./blend-fs.glsl')
+    );
 
     this._params.mode = options.mode || 1;
     this._params.opacity = options.opacity || 1;

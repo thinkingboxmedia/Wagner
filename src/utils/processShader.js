@@ -11,7 +11,7 @@ import { Vector4 } from 'three/src/math/Vector4';
 
 import { Texture } from 'three/src/textures/Texture';
 
-const processShader = (vertexShaderCode, fragmentShaderCode) => {
+export const processShader = (vertexShaderCode, fragmentShaderCode) => {
   const regExp = /uniform\s+([^\s]+)\s+([^\s]+)\s*;/gi;
   const regExp2 = /uniform\s+([^\s]+)\s+([^\s]+)\s*\[\s*(\w+)\s*\]*\s*;/gi;
 
@@ -93,5 +93,3 @@ const processShader = (vertexShaderCode, fragmentShaderCode) => {
 
   return shader;
 }
-
-export { processShader };
