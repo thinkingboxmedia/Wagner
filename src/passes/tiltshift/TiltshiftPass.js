@@ -11,8 +11,8 @@ export default class TiltShiftPass extends Pass {
     );
 
     this._params.bluramount = options.bluramount || 1.0;
-	  this._params.center = options.center || 1.1;
-	  this._params.stepSize = options.stepSize || 0.004;
+    this._params.center = options.center || 1.1;
+    this._params.stepSize = options.stepSize || 0.004;
   }
 
   run(composer) {

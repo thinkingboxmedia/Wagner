@@ -11,7 +11,7 @@ export default class NoisePass extends Pass {
     );
 
     this._params.amount = options.amount || 0.1;
-  	this._params.speed = options.speed || 0;
+    this._params.speed = options.speed || 0;
   }
 
   run(composer) {

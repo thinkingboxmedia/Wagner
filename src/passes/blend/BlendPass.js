@@ -22,7 +22,7 @@ export default class BlendPass extends Pass {
   run(composer) {
     this._shader.uniforms.mode.value = this._params.mode;
     this._shader.uniforms.opacity.value = this._params.opacity;
-    this._hader.uniforms.tInput2.value = this._params.tInput2;
+    this._shader.uniforms.tInput2.value = this._params.tInput2;
     this._shader.uniforms.sizeMode.value = this._params.sizeMode;
     this._shader.uniforms.aspectRatio.value = this._params.aspectRatio;
     this._shader.uniforms.aspectRatio2.value = this._params.aspectRatio2;

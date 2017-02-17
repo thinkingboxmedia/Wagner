@@ -37,7 +37,7 @@ export default class GodrayPass extends Pass {
     this._shader.uniforms.fWeight.value = this._params.fWeight;
     this._shader.uniforms.fClamp.value = this._params.fClamp;
 
-    this._blurPass.params.amount = this.params.blurAmount;
+    this._blurPass.params.amount = this._params.blurAmount;
     
     composer.pass(this._blurPass);
     composer.pass(this._blurPass);
