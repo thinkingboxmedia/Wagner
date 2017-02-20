@@ -6,8 +6,8 @@ export default class ToonPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./toon-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./toon-fs.glsl')
     );
   }
 }

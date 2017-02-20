@@ -6,20 +6,20 @@ export default class TiltShiftPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./tiltshift-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./tiltshift-fs.glsl')
     );
 
-    this._params.bluramount = options.bluramount || 1.0;
-    this._params.center = options.center || 1.1;
-    this._params.stepSize = options.stepSize || 0.004;
+    this.params.bluramount = options.bluramount || 1.0;
+    this.params.center = options.center || 1.1;
+    this.params.stepSize = options.stepSize || 0.004;
   }
 
   run(composer) {
-    this._shader.uniforms.bluramount.value = this._params.bluramount;
-    this._shader.uniforms.center.value = this._params.center;
-    this._shader.uniforms.stepSize.value = this._params.stepSize;
+    this.shader.uniforms.bluramount.value = this.params.bluramount;
+    this.shader.uniforms.center.value = this.params.center;
+    this.shader.uniforms.stepSize.value = this.params.stepSize;
     
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

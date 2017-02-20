@@ -11,18 +11,17 @@ import { processShader } from './utils/processShader';
 export default class Pass {
   
   constructor() {
-    this._shader = null;
-    this._loaded = null;
-    this._params = {};
-    this._isSim = false;
+    this.shader = null;
+    this.isSim = false;
+    this.params = {};
   }
 
   setShader(vs, fs) {
-    this._shader = processShader(vs, fs);
+    this.shader = processShader(vs, fs);
   }
 
   run(composer) {
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 
   getOfflineTexture(w, h, useRGBA) {

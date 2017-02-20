@@ -2,7 +2,6 @@ import { FlatShading } from 'three/src/constants';
 
 import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
 
-import { Matrix2 } from 'three/src/math/Matrix2';
 import { Matrix3 } from 'three/src/math/Matrix3';
 import { Matrix4 } from 'three/src/math/Matrix4';
 import { Vector2 } from 'three/src/math/Vector2';
@@ -10,6 +9,8 @@ import { Vector3 } from 'three/src/math/Vector3';
 import { Vector4 } from 'three/src/math/Vector4';
 
 import { Texture } from 'three/src/textures/Texture';
+
+import Matrix2 from '../math/Matrix2';
 
 export const processShader = (vertexShaderCode, fragmentShaderCode) => {
   const regExp = /uniform\s+([^\s]+)\s+([^\s]+)\s*;/gi;

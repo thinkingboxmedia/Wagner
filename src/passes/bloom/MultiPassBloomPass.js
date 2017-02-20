@@ -25,16 +25,17 @@ export default class MultiPassBloomPass extends Pass {
     this._width = options.width || 512;
     this._height = options.height || 512;
 
-    this._params.blurAmount = options.blurAmount || 2;
-    this._params.applyZoomBlur = options.applyZoomBlur || false;
-    this._params.zoomBlurStrength = options.zoomBlurStrength || 0.2;
-    this._params.useTexture = options.useTexture || false;
-    this._params.zoomBlurCenter = options.zoomBlurCenter || new Vector2(0.5, 0.5);
-    this._params.blendMode = options.blendMode || BlendMode.Screen;
-    this._params.glowTexture = null;
+    this.params.blurAmount = options.blurAmount || 2;
+    this.params.applyZoomBlur = options.applyZoomBlur || false;
+    this.params.zoomBlurStrength = options.zoomBlurStrength || 0.2;
+    this.params.useTexture = options.useTexture || false;
+    this.params.zoomBlurCenter = options.zoomBlurCenter || new Vector2(0.5, 0.5);
+    this.params.blendMode = options.blendMode || BlendMode.Screen;
+    this.params.glowTexture = null;
   }
 
   run(composer) {
+
     if (!this._composer) {
       this._composer = new Composer(composer.renderer, { useRGBA: true });
       this._composer.setSize(this._width, this._height);
@@ -42,30 +43,30 @@ export default class MultiPassBloomPass extends Pass {
 
     this._composer.reset();
 
-    if (this._params.useTexture === true) {
-      this._composer.setSource(this._params.glowTexture.texture);
+    if (this.params.useTexture === true) {
+      this._composer.setSource(this.params.glowTexture.texture);
     } else {
       this._composer.setSource(composer.output.texture);
     }
 
-    this._blurPass.params.amount = this._params.blurAmount;
+    this._blurPass.params.amount = this.params.blurAmount;
     this._composer.pass(this._blurPass);
     
-    if (this._params.applyZoomBlur) {
+    if (this.params.applyZoomBlur) {
       this._zoomBlur.params.center.set(0.5, 0.5);
-      this._zoomBlur.params.strength = this._params.zoomBlurStrength;
+      this._zoomBlur.params.strength = this.params.zoomBlurStrength;
       
       this._composer.pass(this._zoomBlur);
     }
 
-    if (this._params.useTexture === true) {
+    if (this.params.useTexture === true) {
       this._blendPass.params.mode = BlendMode.Screen;
-      this._blendPass.params.tInput = this._params.glowTexture.texture;
+      this._blendPass.params.tInput = this.params.glowTexture.texture;
 
       composer.pass(this._blendPass);
     }
 
-    this._blendPass.params.mode = this._params.blendMode;
+    this._blendPass.params.mode = this.params.blendMode;
     this._blendPass.params.tInput2 = this._composer.output.texture;
 
     composer.pass(this._blendPass)

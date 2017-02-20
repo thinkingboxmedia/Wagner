@@ -6,8 +6,8 @@ export default class CopyPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./copy-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./copy-fs.glsl')
     );
   }
 }

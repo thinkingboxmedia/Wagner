@@ -8,16 +8,16 @@ export default class RGBSplitPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./rgbsplit-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./rgbsplit-fs.glsl')
     );
 
-    this._params.delta = options.delta || new Vector2();
+    this.params.delta = options.delta || new Vector2();
   }
 
   run(composer) {
-    this._shader.uniforms.delta.value.copy(this._params.delta);
+    this.shader.uniforms.delta.value.copy(this.params.delta);
   
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

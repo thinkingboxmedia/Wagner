@@ -8,21 +8,21 @@ export default class ZoomBlurPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./zoom-blur-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./zoom-blur-fs.glsl')
     );
 
-    this._params.center = new Vector2(options.centerX || 0.5, options.centerY || 0.5);
-    this._params.strength = options.strength || 0.1;
+    this.params.center = new Vector2(options.centerX || 0.5, options.centerY || 0.5);
+    this.params.strength = options.strength || 0.1;
   }
 
   run(composer) {
-    this._shader.uniforms.center.value.set(
-      composer.width * this._params.center.x, 
-      composer.height * this._params.center.y
+    this.shader.uniforms.center.value.set(
+      composer.width * this.params.center.x, 
+      composer.height * this.params.center.y
     );
-    this._shader.uniforms.strength.value = this._params.strength;
+    this.shader.uniforms.strength.value = this.params.strength;
     
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

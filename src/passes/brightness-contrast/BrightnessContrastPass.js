@@ -6,18 +6,18 @@ export default class BrightnessContrastPass extends Pass {
     super();
     
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./brightness-contrast-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./brightness-contrast-fs.glsl')
     );
 
-    this._params.brightness = brightness || 1;
-    this._params.contrast = contrast || 1;
+    this.params.brightness = brightness || 1;
+    this.params.contrast = contrast || 1;
   }
 
   run(composer) {
-    this._shader.uniforms.brightness.value = this._params.brightness;
-    this._shader.uniforms.contrast.value = this._params.contrast;
+    this.shader.uniforms.brightness.value = this.params.brightness;
+    this.shader.uniforms.contrast.value = this.params.contrast;
 
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

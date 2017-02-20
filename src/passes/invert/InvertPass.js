@@ -6,8 +6,8 @@ export default class InvertPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./invert-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./invert-fs.glsl')
     );
   }
 }

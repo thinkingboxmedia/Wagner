@@ -8,7 +8,7 @@ import {
 
 import { OrthographicCamera } from 'three/src/cameras/OrthographicCamera';
 
-import { PlaneBufferGeometry } from 'three/src/geometries/PlaneBufferGeometry';
+import { PlaneBufferGeometry } from 'three/src/geometries/PlaneGeometry';
 
 import { MeshBasicMaterial } from 'three/src/materials/MeshBasicMaterial';
 import { ShaderMaterial } from 'three/src/materials/ShaderMaterial';
@@ -31,15 +31,16 @@ export default class Composer {
     this._width  = Math.floor(renderer.context.canvas.width  / pixelRatio) || 1;
     this._height = Math.floor(renderer.context.canvas.height / pixelRatio) || 1;
 
-    this._output = null;
+    this.output = null;
+    this.renderer = renderer;
+
     this._input = null;
     this._read = null;
     this._write = null;
 
     this._settings = settings || {};
     this._useRGBA = this._settings.useRGBA || false;
-
-    this._renderer = renderer;
+    
     this._copyPass = new CopyPass(this._settings);
 
     this._defaultMaterial = new MeshBasicMaterial({ color: 0x00FF00, wireframe: false });
@@ -66,7 +67,7 @@ export default class Composer {
   }
 
   swapBuffers() {
-    this._output = this._write;
+    this.output = this._write;
     this._input = this._read;
 
     const t = this._write;
@@ -76,7 +77,7 @@ export default class Composer {
 
   render(scene, camera, keep, output) {
     if (keep) this.swapBuffers();
-    this._renderer.render(scene, camera, output ? output : this._write, true);
+    this.renderer.render(scene, camera, output ? output : this._write, true);
     if (!output) this.swapBuffers();
   }
 
@@ -84,13 +85,13 @@ export default class Composer {
     this._quad.material = pass ? pass.shader : this._copyPass.shader;
     this._quad.material.uniforms.tInput.value = this._read.texture;
     this._quad.material.uniforms.resolution.value.set(this._width, this._height);
-    this._renderer.render(this._scene, this._camera);
+    this.renderer.render(this._scene, this._camera);
   }
 
   toTexture(t, pass) {
     this._quad.material = pass ? pass.shader : this._copyPass.shader;
     this._quad.material.uniforms.tInput.value = this._read.texture;
-    this._renderer.render(this._scene, this._camera, t, false);
+    this.renderer.render(this._scene, this._camera, t, false);
   }
 
   pass(pass) {
@@ -112,7 +113,7 @@ export default class Composer {
 
       this._quad.material.uniforms.resolution.value.set(this._width, this._height);
       this._quad.material.uniforms.time.value = 0.001 * (Date.now() - this._startTime);
-      this._renderer.render(this._scene, this._camera, this._write, false);
+      this.renderer.render(this._scene, this._camera, this._write, false);
       this.swapBuffers();
     }
   }
@@ -126,14 +127,14 @@ export default class Composer {
   reset() {
     this._read = this._front;
     this._write = this._back;
-    this._output = this._write;
+    this.output = this._write;
     this._input = this._read;
   }
 
-  setSource() {
+  setSource(src) {
     this._quad.material = this._copyPass.shader;
     this._quad.material.uniforms.tInput.value = src;
-    this._renderer.render(this._scene, this._camera, this._write, true);
+    this.renderer.render(this._scene, this._camera, this._write, true);
     this.swapBuffers();
   }
 

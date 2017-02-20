@@ -10,11 +10,11 @@ export default class FullBoxBlurPass extends Pass {
     amount = amount || 2;
 
     this._boxPass = new BoxBlurPass(amount, amount);
-    this._params.amount = amount;
+    this.params.amount = amount;
   }
 
   run(composer) {
-    const s = this._params.amount;
+    const s = this.params.amount;
 
     this._boxPass.params.delta.set(s, 0);
     composer.pass(this._boxPass );

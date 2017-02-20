@@ -8,15 +8,15 @@ export default class BoxBlurPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!./box-blur-vs.glsl'), 
-      require('glslify!raw!./box-blur-fs.glsl')
+      require('./box-blur-vs.glsl'), 
+      require('./box-blur-fs.glsl')
     );
-    this._params.delta = new Vector2(deltaX || 0, deltaY || 0);
+    this.params.delta = new Vector2(deltaX || 0, deltaY || 0);
   }
 
   run(composer) {
-    this._shader.uniforms.delta.value.copy(this._params.delta);
+    this.shader.uniforms.delta.value.copy(this.params.delta);
     
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

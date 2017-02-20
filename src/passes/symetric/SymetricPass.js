@@ -8,26 +8,26 @@ export default class SymetricPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./symetric-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./symetric-fs.glsl')
     );
 
-    this._params.xReverse = false;
-    this._params.yReverse = false;
-    this._params.xMirror = false;
-    this._params.yMirror = false;
-    this._params.mirrorCenter = new Vector2( 0.5, 0.5);
-    this._params.angle = 0;
+    this.params.xReverse = false;
+    this.params.yReverse = false;
+    this.params.xMirror = false;
+    this.params.yMirror = false;
+    this.params.mirrorCenter = new Vector2( 0.5, 0.5);
+    this.params.angle = 0;
   }
 
   run(composer) {
-    this._shader.uniforms.xReverse.value = this._params.xReverse;
-    this._shader.uniforms.yReverse.value = this._params.yReverse;
-    this._shader.uniforms.xMirror.value = this._params.xMirror;
-    this._shader.uniforms.yMirror.value = this._params.yMirror;
-    this._shader.uniforms.mirrorCenter.value = this._params.mirrorCenter;
-    this._shader.uniforms.angle.value = this._params.angle;
+    this.shader.uniforms.xReverse.value = this.params.xReverse;
+    this.shader.uniforms.yReverse.value = this.params.yReverse;
+    this.shader.uniforms.xMirror.value = this.params.xMirror;
+    this.shader.uniforms.yMirror.value = this.params.yMirror;
+    this.shader.uniforms.mirrorCenter.value = this.params.mirrorCenter;
+    this.shader.uniforms.angle.value = this.params.angle;
 
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

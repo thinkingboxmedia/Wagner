@@ -6,16 +6,16 @@ export default class FishEyePass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./fisheye-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./fisheye-fs.glsl')
     );
 
-    this._params.power = options.power || 1.2;
+    this.params.power = options.power || 1.2;
   }
 
   run(composer) {
-    this._shader.uniforms.power.value = this._params.power;
+    this.shader.uniforms.power.value = this.params.power;
     
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

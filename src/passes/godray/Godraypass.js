@@ -8,8 +8,8 @@ export default class GodrayPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./godray-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./godray-fs.glsl')
     );
 
     this._blurPass = new FullBoxBlurPass(2);
@@ -17,31 +17,31 @@ export default class GodrayPass extends Pass {
     this._width = options.width || 512;
     this._height = options.height || 512;
 
-    this._params.blurAmount = options.blurAmount || 2;
+    this.params.blurAmount = options.blurAmount || 2;
 
-    this._params.fX = 0.5;
-    this._params.fY = 0.5;
-    this._params.fExposure = 0.6;
-    this._params.fDecay = 0.93;
-    this._params.fDensity = 0.88;
-    this._params.fWeight = 0.4;
-    this._params.fClamp = 1.0;
+    this.params.fX = 0.5;
+    this.params.fY = 0.5;
+    this.params.fExposure = 0.6;
+    this.params.fDecay = 0.93;
+    this.params.fDensity = 0.88;
+    this.params.fWeight = 0.4;
+    this.params.fClamp = 1.0;
   }
 
   run(composer) {
-    this._shader.uniforms.fX.value = this._params.fX;
-    this._shader.uniforms.fY.value = this._params.fY;
-    this._shader.uniforms.fExposure.value = this._params.fExposure;
-    this._shader.uniforms.fDecay.value = this._params.fDecay;
-    this._shader.uniforms.fDensity.value = this._params.fDensity;
-    this._shader.uniforms.fWeight.value = this._params.fWeight;
-    this._shader.uniforms.fClamp.value = this._params.fClamp;
+    this.shader.uniforms.fX.value = this.params.fX;
+    this.shader.uniforms.fY.value = this.params.fY;
+    this.shader.uniforms.fExposure.value = this.params.fExposure;
+    this.shader.uniforms.fDecay.value = this.params.fDecay;
+    this.shader.uniforms.fDensity.value = this.params.fDensity;
+    this.shader.uniforms.fWeight.value = this.params.fWeight;
+    this.shader.uniforms.fClamp.value = this.params.fClamp;
 
-    this._blurPass.params.amount = this._params.blurAmount;
+    this._blurPass.params.amount = this.params.blurAmount;
     
     composer.pass(this._blurPass);
     composer.pass(this._blurPass);
 
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

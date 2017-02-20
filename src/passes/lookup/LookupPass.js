@@ -8,15 +8,15 @@ export default class LookupPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./lookup-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./lookup-fs.glsl')
     );
-    this._params.uLookup = new Texture(512, 512);
+    this.params.uLookup = new Texture(512, 512);
   }
 
   run(composer) {
-    this._shader.uniforms.uLookup.value = this._params.uLookup;
+    this.shader.uniforms.uLookup.value = this.params.uLookup;
 
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

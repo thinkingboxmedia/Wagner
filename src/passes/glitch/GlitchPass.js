@@ -12,12 +12,12 @@ export default class GlitchPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./glitch-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./glitch-fs.glsl')
     );
 
     // this.params.tPerturb = null;
-    this._params.mode = options.mode || 0;
+    this.params.mode = options.mode || 0;
 
     this._counter = 0;
     this._breakPoint = 0;
@@ -25,7 +25,7 @@ export default class GlitchPass extends Pass {
 
     if(options.perturbMap !== undefined) {
 
-      this._params.tPerturb = options.perturbMap;
+      this.params.tPerturb = options.perturbMap;
 
     } else {
 
@@ -46,7 +46,7 @@ export default class GlitchPass extends Pass {
 
       this._perturbMap = new DataTexture(data, 64, 64, RGBFormat, FloatType);
       this._perturbMap.needsUpdate = true;
-      this._params.tPerturb = this._perturbMap;
+      this.params.tPerturb = this._perturbMap;
     }
   }
 
@@ -55,41 +55,41 @@ export default class GlitchPass extends Pass {
   }
 
   run(composer) {
-    this._shader.uniforms.tPerturb = this._params.tPerturb;
-    this._shader.uniforms.active.value = true;
+    this.shader.uniforms.tPerturb = this.params.tPerturb;
+    this.shader.uniforms.active.value = true;
 
-    if (this._counter % this._breakPoint === 0 || this._params.mode === 2) {
+    if (this._counter % this._breakPoint === 0 || this.params.mode === 2) {
 
-      this._shader.uniforms.amount.value = Math.random() / 30.0;
-      this._shader.uniforms.angle.value = _Math.randFloat(-Math.PI, Math.PI);
-      this._shader.uniforms.seed.value = Math.random();
-      this._shader.uniforms.seedX.value = _Math.randFloat(-1.0, 1.0);
-      this._shader.uniforms.seedY.value = _Math.randFloat(-1.0, 1.0);
-      this._shader.uniforms.distortionX.value = _Math.randFloat(0.0, 1.0);
-      this._shader.uniforms.distortionY.value = _Math.randFloat(0.0, 1.0);
-      this._shader.uniforms.colS.value = 0.05;
+      this.shader.uniforms.amount.value = Math.random() / 30.0;
+      this.shader.uniforms.angle.value = _Math.randFloat(-Math.PI, Math.PI);
+      this.shader.uniforms.seed.value = Math.random();
+      this.shader.uniforms.seedX.value = _Math.randFloat(-1.0, 1.0);
+      this.shader.uniforms.seedY.value = _Math.randFloat(-1.0, 1.0);
+      this.shader.uniforms.distortionX.value = _Math.randFloat(0.0, 1.0);
+      this.shader.uniforms.distortionY.value = _Math.randFloat(0.0, 1.0);
+      this.shader.uniforms.colS.value = 0.05;
       
       this.generateTrigger();
 
-    } else if(this._counter % this._breakPoint < this._breakPoint / 5 || this._params.mode === 1) {
+    } else if(this._counter % this._breakPoint < this._breakPoint / 5 || this.params.mode === 1) {
 
-      this._shader.uniforms.amount.value = Math.random() / 90.0;
-      this._shader.uniforms.angle.value = _Math.randFloat(-Math.PI, Math.PI);
-      this._shader.uniforms.seed.value = Math.random();
-      this._shader.uniforms.seedX.value = _Math.randFloat(-0.3, 0.3);
-      this._shader.uniforms.seedY.value = _Math.randFloat(-0.3, 0.3);
-      this._shader.uniforms.distortionX.value = _Math.randFloat(0.0, 1.0);
-      this._shader.uniforms.distortionY.value = _Math.randFloat(0.0, 1.0);
-      this._shader.uniforms.colS.value = 0.05;
+      this.shader.uniforms.amount.value = Math.random() / 90.0;
+      this.shader.uniforms.angle.value = _Math.randFloat(-Math.PI, Math.PI);
+      this.shader.uniforms.seed.value = Math.random();
+      this.shader.uniforms.seedX.value = _Math.randFloat(-0.3, 0.3);
+      this.shader.uniforms.seedY.value = _Math.randFloat(-0.3, 0.3);
+      this.shader.uniforms.distortionX.value = _Math.randFloat(0.0, 1.0);
+      this.shader.uniforms.distortionY.value = _Math.randFloat(0.0, 1.0);
+      this.shader.uniforms.colS.value = 0.05;
 
-    } else if(this._params.mode === 0) {
+    } else if(this.params.mode === 0) {
 
-      this._shader.uniforms.active.value = false;
+      this.shader.uniforms.active.value = false;
 
     }
 
     ++this._counter;
 
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

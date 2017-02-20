@@ -6,16 +6,16 @@ export default class PixelatePass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./pixelate-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./pixelate-fs.glsl')
     );
 
-    this._params.amount = 320;
+    this.params.amount = 320;
   }
 
   run(composer) {
-    this._shader.uniforms.amount.value = this._params.amount;
+    this.shader.uniforms.amount.value = this.params.amount;
   
-    composer.pass(this._shader);
+    composer.pass(this.shader);
   }
 }

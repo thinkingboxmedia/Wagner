@@ -6,7 +6,7 @@ export default class GenericPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/ortho.glsl'), 
+      require('../../shaders/vertex/ortho.glsl'), 
       fragment
     );
   }

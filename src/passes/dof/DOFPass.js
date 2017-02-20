@@ -6,26 +6,26 @@ export default class DOFPass extends Pass {
     super();
 
     this.setShader(
-      require('glslify!raw!../../shaders/vertex/basic.glsl'), 
-      require('glslify!raw!./dof-fs.glsl')
+      require('../../shaders/vertex/basic.glsl'), 
+      require('./dof-fs.glsl')
     );
 
-    this._params.focalDistance = options.focalDistance || 0.01;
-    this._params.aperture = options.aperture || .005;
-    this._params.tBias = options.tBias || null;
-    this._params.blurAmount = options.blurAmount || 1;
+    this.params.focalDistance = options.focalDistance || 0.01;
+    this.params.aperture = options.aperture || .005;
+    this.params.tBias = options.tBias || null;
+    this.params.blurAmount = options.blurAmount || 1;
   }
 
   run(composer) {
-    this._shader.uniforms.tBias.value = this._params.tBias;
-    this._shader.uniforms.focalDistance.value = this._params.focalDistance;
-    this._shader.uniforms.aperture.value = this._params.aperture;
-    this._shader.uniforms.blurAmount.value = this._params.blurAmount;
+    this.shader.uniforms.tBias.value = this.params.tBias;
+    this.shader.uniforms.focalDistance.value = this.params.focalDistance;
+    this.shader.uniforms.aperture.value = this.params.aperture;
+    this.shader.uniforms.blurAmount.value = this.params.blurAmount;
 
-    this._shader.uniforms.delta.value.set( 1, 0 );
-    composer.pass(this._shader);
+    this.shader.uniforms.delta.value.set( 1, 0 );
+    composer.pass(this.shader);
 
-    this._shader.uniforms.delta.value.set( 0, 1 );
-    composer.pass(this._shader);
+    this.shader.uniforms.delta.value.set( 0, 1 );
+    composer.pass(this.shader);
   }
 }
