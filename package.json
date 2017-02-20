@@ -1,0 +1,28 @@
+{
+  "name": "@thinkingbox/wagner",
+  "version": "0.1.0",
+  "description": "Fork of spite/Wagner in commonjs for webpack2 and glslify.",
+  "main": "index.js",
+  "repository": "https://github.com/thinkingboxmedia/Wagner.git",
+  "author": "Jean-Michel Saulnier <jmsaulnier.dev@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "example": "webpack-dev-server --content-base examples/ --entry ./examples/index.js --open"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-loader": "^6.3.2",
+    "babel-plugin-module-resolver": "^2.5.0",
+    "babel-preset-latest": "^6.22.0",
+    "glslify": "^6.0.1",
+    "glslify-loader": "^1.0.2",
+    "raw-loader": "^0.5.1",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1"
+  },
+  "dependencies": {
+    "domready": "^1.0.8",
+    "raf": "^3.3.0",
+    "three": "^0.84.0"
+  }
+}
