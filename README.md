@@ -1,4 +1,4 @@
-# wagner-common
+# wagner-Webpack2
 
 Fork of [spite/Wagner](http://github.com/spite/Wagner) for Webpack2 and glslify. 
 
